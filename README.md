@@ -11,9 +11,9 @@ Js make is a build tool for compiling c++ files in your project
 
 ```sh
 
-make.mjs
+node make.mjs
 
-make.mjs -c "<config-file>.json" # custom config file name, default is makeconfig.json
+node make.mjs -c "<config-file>.json" # custom config file name, default is makeconfig.json
 
 
 
