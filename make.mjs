@@ -1,4 +1,5 @@
 import fs from "fs/promises";
+import { existsSync } from "fs";
 import path from "path";
 import { spawn } from "child_process";
 const defaultConfig = {
@@ -68,6 +69,12 @@ const buildProject = async (config) => {
 		console.log(`Staging => ${file}`);
 	});
 
+	const distDir = path.resolve(config.dist);
+
+	if (!existsSync(distDir)) {
+		await fs.mkdir(distDir);
+	}
+
 	const dist = path.resolve(config.dist, config.executable);
 	const build = spawn("g++", [...cppFiles, "-o", dist]);
 
@@ -98,6 +105,7 @@ const buildProject = async (config) => {
 			console.log(`Executable: ${exePath}`);
 
 			if (config.runAfterBuild) {
+				console.clear();
 				console.log(`Running Executable ${exePath}`);
 
 				console.log("\nOutput:");
